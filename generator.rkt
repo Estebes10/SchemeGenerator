@@ -1,9 +1,12 @@
 #lang racket
 
 (provide languaje)
+(provide filename)
 (provide columns)
 (provide column-names)
 (provide types-names)
+(provide total-columns)
+(provide rows)
 
 ;; Receive from user:
 ;; input: ((column-name type, column-name2 type), languaje, number, filename)
@@ -20,7 +23,7 @@
                   "(((column-name type)(column-name2 type)) languaje rows csv-output-name))\n\n"
                   "Example: \n"
                   "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
-                  "(((col1 type1)(col2 type2)(col3 type3)) es 10 user.csv)\n\n")))
+                  "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n")))
 
 ;; Get the input given by user
 (define input (read))
@@ -50,7 +53,7 @@
     [else #f]))
 
 ;; get total of columns for csv
-(define total-colums (length columns))
+(define total-columns (length columns))
 
 ;; method to get names
 (define (get-names list)
@@ -72,3 +75,9 @@
 
 ;; get types names
 (define types-names (get-types columns))
+
+;; method to get length of lists
+(define (my-length lst)
+  (cond
+   [(empty? lst) 0]
+   [else (+ 1 (my-length (rest lst)))]))
