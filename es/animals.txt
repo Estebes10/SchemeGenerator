@@ -2,3 +2,11 @@ gato
 perro
 canario
 hormiga
+puerco
+loro
+toro
+puma
+leon
+jirafa
+elefante
+tigre

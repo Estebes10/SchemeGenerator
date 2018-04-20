@@ -2,3 +2,10 @@ cat
 dog
 canary
 ant
+cow
+pig
+turtle
+lion
+tiger
+chicken
+butterfly

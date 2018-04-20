@@ -3,3 +3,7 @@ González
 Pérez
 Alfaro
 Robles
+Hernanez
+Lopez
+Guerrero
+Solis

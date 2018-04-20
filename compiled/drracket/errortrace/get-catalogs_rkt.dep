@@ -1,0 +1,1 @@
+("6.11" ("9983913c6f5562986564245347a4ebd3b0724b45" . "7ccbea5a6839a638d48b3974586ae581b9ececbe") #"/Users/Estebes10Gear/Documents/proyectos/scheme-generator/generator.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

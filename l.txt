@@ -1,0 +1,15 @@
+-csv data rows-to-write)
+  (cond
+    [(= 0 rows-to-write)]
+    [(empty? data) (newline out)(write-data-csv data (- rows-to-write 1) )]
+    [else (display (string-append "\"" (symbol->string (car data)) "\"" ",")
+out)
+          (write-data-csv (cdr data) rows-to-write)]))
+
+(define (write-if-rows dataa rowss)
+  (cond
+    [(= 0 rowss)(close-output-port out)]
+    [(empty? dataa) (write-if-data dataa rowss)]
+    [else (display (string-append "\"" (symbol->string (car dataa)) "\"" ",")
+out)
+          (write-if-rows (cdr dataa) (- rowss 1))]))
