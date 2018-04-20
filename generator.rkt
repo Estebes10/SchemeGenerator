@@ -23,7 +23,9 @@
                   "(((column-name type)(column-name2 type)) languaje rows csv-output-name))\n\n"
                   "Example: \n"
                   "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
-                  "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n")))
+                  "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n"
+                  "Valid types: men-name, women-name, car-brand, lastname, animal-name, bank-name\n\n"
+                  "Available languajes: es \n\n")))
 
 ;; Get the input given by user
 (define input (read))

@@ -40,7 +40,7 @@
 ;; Method to use to separate languajes catalog with global catalog
 (define (get-path langu type)
   (cond
-    [(string=?  type "bank-name") "global/bank-name.txt"]
+    [(string=?  type "bank-name") "global/bank-names.txt"]
     [(string=?  type "car-brand") "global/car-brand.txt"]
     [(string=? langu "es")(get-spanish-catalog type)]
     [(string=? langu "en")(get-english-catalog type)]))
