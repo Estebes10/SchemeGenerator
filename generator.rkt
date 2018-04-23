@@ -34,16 +34,33 @@
     [(= 0 rowss) (close-output-port out)]
     [(empty? cols)(newline out)(fill types-names (- rowss 1))]
     [else (display (string-append "\""
-                                  (random-element (get-content (get-path (symbol->string languaje)(symbol->string (car cols)))))
+                                  (random-element
+                                   (get-content
+                                    (get-path
+                                     (symbol->string languaje)
+                                     (symbol->string (car cols)))))
                                   "\""
                                   ",") out)
           (fill (cdr cols) rowss)]))
 
 ;; method to write data headers
-(define write-headers (write-header-csv column-names))
-(define write-columns (fill types-names rows))
+;;(define write-headers (write-header-csv column-names))
+;;(define write-columns (fill types-names rows))
 
-;(define attribute (get-attribute list))
+;; Define messages to print after execution
+(define (successful file)
+  (printf "Creating file...\n")
+  (display (string-append "The file: " file " was created successfully\n")))
+
+(define (wrong file)
+  (printf "Creating file...\n")
+  (display (string-append "The file: " file " could not be created, try again\n")))
+
+;; Check execution
+(define execute
+  (cond
+    [(and (write-header-csv column-names)(fill types-names rows)) (successful (symbol->string filename))]
+    [else (wrong (symbol->string filename))]))
 
 ;; find column
 (define (find-column attribute list)
