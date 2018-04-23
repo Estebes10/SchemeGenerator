@@ -24,18 +24,18 @@
 ;; get english catalog paths
 (define (get-english-catalog type)
   (cond
-    [(string=? type "animal-name") "en/animals.txt"]
-    [(string=? type "men-name") "en/men-name.txt"]
-    [(string=? type "women-name") "en/women-name.txt"]
-    [(string=? type "lastname") "en/lastname.txt"]))
+    [(string=? type "animal-name") "languajes/en/animals.txt"]
+    [(string=? type "men-name") "languajes/en/men-name.txt"]
+    [(string=? type "women-name") "languajes/en/women-name.txt"]
+    [(string=? type "lastname") "languajes/en/lastname.txt"]))
 
 ;; Get spanish catalog paths
 (define (get-spanish-catalog type)
   (cond
-    [(string=?  type "animal-name") "es/animals.txt"]
-    [(string=?  type "men-name") "es/men-name.txt"]
-    [(string=?  type "women-name") "es/women-name.txt"]
-    [(string=?  type "lastname") "es/lastname.txt"]))
+    [(string=?  type "animal-name") "languajes/es/animals.txt"]
+    [(string=?  type "men-name") "languajes/es/men-name.txt"]
+    [(string=?  type "women-name") "languajes/es/women-name.txt"]
+    [(string=?  type "lastname") "languajes/es/lastname.txt"]))
 
 ;; Method to use to separate languajes catalog with global catalog
 (define (get-path langu type)

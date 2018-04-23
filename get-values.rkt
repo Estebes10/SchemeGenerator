@@ -11,10 +11,18 @@
 ;; Receive from user:
 ;; input: ((column-name type, column-name2 type), languaje, number, filename)
 
-;; Example
+;; EXAMPLE
 ;; ((name animals, lastname lastname), es-mx, 10, animals.csv)
 ;; Output -> csv file called "animals.csv"
 
+;; get list of languajes available for SchemeGenerator
+(define available-languajes
+  (directory-list "languajes"))
+
+(define (display-languajes list)
+  (cond
+    [(empty? list) (display "\n\n")]
+    [else (display (string-append (path->string (car list)) ", "))(display-languajes (cdr list))]))
 
 ;; Method to display how to use this program
 (define how-to-use
@@ -25,7 +33,10 @@
                   "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
                   "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n"
                   "Valid types: men-name, women-name, car-brand, lastname, animal-name, bank-name\n\n"
-                  "Available languajes: es \n\n")))
+                  "Available languajes: ")))
+
+;; Display guide
+(define guide-languajes (display-languajes available-languajes))
 
 ;; Get the input given by user
 (define input (read))
@@ -39,7 +50,7 @@
 ;; save languaje if exists catalogs in that languaje
 (define languaje
   (cond
-    [(directory-exists? (string-append "./" (symbol->string (car parameters))))(car parameters)]
+    [(directory-exists? (string-append "./languajes/" (symbol->string (car parameters))))(car parameters)]
     [else (raise "Languaje typed does not exist, try with valid values")(exit)]))
 
 ;; save rows
