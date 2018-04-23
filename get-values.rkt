@@ -36,14 +36,20 @@
 ;; save parameters of languaje, rows and filename
 (define parameters (cdr input))
 
-;; save languaje
-(define languaje (car parameters))
+;; save languaje if exists catalogs in that languaje
+(define languaje
+  (cond
+    [(directory-exists? (string-append "./" (symbol->string (car parameters))))(car parameters)]
+    [else (raise "Languaje typed does not exist, try with valid values")(exit)]))
 
 ;; save rows
 (define rows (car (cdr parameters)))
 
-;; save filename
-(define filename (car (cdr (cdr parameters))))
+;; save filename if does not exists in current directory
+(define filename
+  (cond
+    [(file-exists? (symbol->string (car (cdr (cdr parameters)))))(raise "The filename exists in your current directory, try with another name for output file")(exit)]
+    [else (car (cdr (cdr parameters)))]))
 
 ;; method to count if a list contains pairs (column-name type)
 (define (two-in-list? list)
