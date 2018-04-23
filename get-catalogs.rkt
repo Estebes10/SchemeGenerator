@@ -24,10 +24,10 @@
 ;; get english catalog paths
 (define (get-english-catalog type)
   (cond
-    [(= type "animal-name") "en/animals.txt"]
-    [(= type "men-name") "en/men-name.txt"]
-    [(= type "women-name") "en/women-name.txt"]
-    [(= type "lastname") "en/lastname.txt"]))
+    [(string=? type "animal-name") "en/animals.txt"]
+    [(string=? type "men-name") "en/men-name.txt"]
+    [(string=? type "women-name") "en/women-name.txt"]
+    [(string=? type "lastname") "en/lastname.txt"]))
 
 ;; Get spanish catalog paths
 (define (get-spanish-catalog type)
