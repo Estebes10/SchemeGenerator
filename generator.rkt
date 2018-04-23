@@ -43,10 +43,6 @@
                                   ",") out)
           (fill (cdr cols) rowss)]))
 
-;; method to write data headers
-;;(define write-headers (write-header-csv column-names))
-;;(define write-columns (fill types-names rows))
-
 ;; Define messages to print after execution
 (define (successful file)
   (printf "Creating file...\n")
