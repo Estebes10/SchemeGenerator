@@ -1,85 +1,59 @@
 #lang racket
+(require "get-values.rkt")
+(require "get-catalogs.rkt")
 
-(provide languaje)
-(provide filename)
-(provide columns)
-(provide column-names)
-(provide types-names)
-(provide total-columns)
-(provide rows)
+;; open file to write
+(define out (open-output-file (symbol->string filename)))
 
-;; Receive from user:
-;; input: ((column-name type, column-name2 type), languaje, number, filename)
+;;(display "Problem?" out)
+;; (newline out)
+;;(close-output-port out)
 
-;; Example
-;; ((name animals, lastname lastname), es-mx, 10, animals.csv)
-;; Output -> csv file called "animals.csv"
-
-
-;; Method to display how to use this program
-(define how-to-use
-  (display
-   (string-append "How to use: \n"
-                  "(((column-name type)(column-name2 type)) languaje rows csv-output-name))\n\n"
-                  "Example: \n"
-                  "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
-                  "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n"
-                  "Valid types: men-name, women-name, car-brand, lastname, animal-name, bank-name\n\n"
-                  "Available languajes: es \n\n")))
-
-;; Get the input given by user
-(define input (read))
-
-;; save parameters that will be used to generate columns in csv file
-(define columns (car input))
-
-;; save parameters of languaje, rows and filename
-(define parameters (cdr input))
-
-;; save languaje
-(define languaje (car parameters))
-
-;; save rows
-(define rows (car (cdr parameters)))
-
-;; save filename
-(define filename (car (cdr (cdr parameters))))
-
-;; method to count if a list contains pairs (column-name type)
-(define (two-in-list? list)
+;; get atribute
+(define (get-attribute list)
   (cond
-    [(symbol? list) #f]
-    [(empty? list) #f]
-    [(empty? (cdr list)) #f]
-    [(empty? (cdr (cdr list))) #t]
-    [else #f]))
+    [(empty? list) ""]
+    [else (car list)]))
 
-;; get total of columns for csv
-(define total-columns (length columns))
-
-;; method to get names
-(define (get-names list)
+;; method to write column headers
+(define (write-header-csv cols)
   (cond
-    [(empty? list) empty]
-    [(and (symbol? (car list))(not (empty? (cdr list))))(cons (car list) empty)]
-    [else (append (get-names (car list))(get-names (cdr list)))]))
+    [(empty? cols) (newline out)]
+    [else (display (string-append "\"" (symbol->string (car cols)) "\"" ",") out)
+          (write-header-csv (cdr cols))]))
 
-;; method to get types
-(define (get-types list)
+(define (write-columns-csv cols)
   (cond
-    [(empty? list) empty]
-    [(and (symbol? (car list))(empty? (cdr list)))(cons (car list) empty)]
-    [(and (symbol? (car list))(not (empty? (cdr list))))(get-types (cdr list))]
-    [else (append (get-types (car list))(get-types (cdr list)))]))
+    [(empty? cols) (newline out)  (close-output-port out)]
+    [else (display (string-append "\"" (symbol->string (car cols)) "\"" ",") out)
+          (write-columns-csv (cdr cols))]))
 
-;; get column names
-(define column-names (get-names columns))
-
-;; get types names
-(define types-names (get-types columns))
-
-;; method to get length of lists
-(define (my-length lst)
+;; method to fill csv data
+(define (fill cols rowss)
   (cond
-   [(empty? lst) 0]
-   [else (+ 1 (my-length (rest lst)))]))
+    [(= 0 rowss) (close-output-port out)]
+    [(empty? cols)(newline out)(fill types-names (- rowss 1))]
+    [else (display (string-append "\""
+                                  (random-element (get-content (get-path (symbol->string languaje)(symbol->string (car cols)))))
+                                  "\""
+                                  ",") out)
+          (fill (cdr cols) rowss)]))
+
+;; method to write data headers
+(define write-headers (write-header-csv column-names))
+(define write-columns (fill types-names rows))
+
+;(define attribute (get-attribute list))
+
+;; find column
+(define (find-column attribute list)
+  (search-element attribute list))
+
+;; save column in type of columns
+;(define column (find-column attribute types-names))
+
+;; return pathname of catalogs
+;;(define pathname (get-path (symbol->string languaje) (symbol->string column)))
+
+;; save catalog from directories
+;;(define catalog (get-content pathname))

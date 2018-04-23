@@ -1,5 +1,5 @@
 #lang racket
-(require "generator.rkt")
+(require "get-values.rkt")
 (provide search-element)
 (provide random-element)
 (provide get-content)
@@ -63,4 +63,3 @@
 ;; get a random element on the catalog
 (define (random-element list)
   (symbol->string (list-ref list (random (length list)))))
-
