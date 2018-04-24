@@ -1,4 +1,20 @@
 #lang racket
+;;    SchemeGenerator is a small program to generate data to populate databases
+;;    Copyright (C) 2018  Juan Carlos Estebes González
+
+;;    This program is free software: you can redistribute it and/or modify
+;;   it under the terms of the GNU General Public License as published by
+;;    the Free Software Foundation, either version 3 of the License, or
+;;    (at your option) any later version.
+
+;;    This program is distributed in the hope that it will be useful,
+;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;    GNU General Public License for more details.
+
+;;   You should have received a copy of the GNU General Public License
+;;   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 
 (provide languaje)
 (provide filename)
@@ -27,8 +43,30 @@
 ;; Method to display how to use this program
 (define how-to-use
   (display
-   (string-append "How to use: \n"
+   (string-append "SchemeGenerator is a small program to generate data to populate databases
+    Copyright (C) 2018  Juan Carlos Estebes González
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n"
+                  "How to use: \n"
                   "(((column-name type)(column-name2 type)) languaje rows csv-output-name))\n\n"
+                  "Where:\n"
+                  "((column-name type)(column-name2 type)): are the columns and datatypes for csv\n"
+                  "headers and types of data to fill the rows in csv file.\n"
+                  "languaje: is the languaje selected to get data in catalogs.\n"
+                  "rows: is the number of rows that you want to fill in csv.\n"
+                  "csv-output-name: is the name of the csv file containing the data generated\n\n"
+                  "Check that the parenthesis are correctly used\n\n"
                   "Example: \n"
                   "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
                   "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n"
