@@ -25,16 +25,37 @@
 (provide rows)
 
 ;; Receive from user:
-;; input: ((column-name type, column-name2 type), languaje, number, filename)
+;; input: (((column-name type) (column-name2 type)) language rows filename)
 
 ;; EXAMPLE
-;; ((name animals, lastname lastname), es-mx, 10, animals.csv)
+;; ((name animals, lastname lastname) es-mx 10 animals.csv)
 ;; Output -> csv file called "animals.csv"
+
 
 ;; get list of languajes available for SchemeGenerator
 (define available-languajes
-  (directory-list "languajes"))
+  (directory-list "languages"))
 
+;; List of spanish datatypes
+(define spanish-list '("Name::Men"
+                       "Name::Women"
+                       "Name::Lastname"
+                       "Animal::Name"
+                       "Mexico::Address::City"
+                       "Mexico::Address::State"
+                       "Mexico::Address::State-code"))
+
+;; List of english datatypes
+(define english-list '("Name::Men"
+                       "Name::Women"
+                       "Name::Lastname"
+                       "Animal::Name"))
+
+;; List of global datatypes
+(define global-list '("Car::Brand"
+                       "Bank::Name"))
+
+;; Method to display all the available languajes
 (define (display-languajes list)
   (cond
     [(empty? list) (display "\n\n")]
@@ -59,21 +80,35 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n"
                   "How to use: \n"
-                  "(((column-name type)(column-name2 type)) languaje rows csv-output-name))\n\n"
+                  "(((column-name type)(column-name2 type)) language rows csv-output-name))\n\n"
                   "Where:\n"
-                  "((column-name type)(column-name2 type)): are the columns and datatypes for csv\n"
-                  "headers and types of data to fill the rows in csv file.\n"
-                  "languaje: is the languaje selected to get data in catalogs.\n"
+                  "((column-name type)(column-name2 type)): is a list of pairs, containig columns and datatypes for csv"
+                  "That will be the headers and types of data to fill the rows in csv file.\n"
+                  "language: is the language selected to get data in catalogs.\n"
                   "rows: is the number of rows that you want to fill in csv.\n"
                   "csv-output-name: is the name of the csv file containing the data generated\n\n"
-                  "Check that the parenthesis are correctly used\n\n"
-                  "Example: \n"
-                  "(((name men-name)(lastname lastname)) es 10 user.csv)\n\n"
-                  "(((man men-name)(women women-name)(car car-brand)) es 10 user.csv)\n\n"
-                  "Valid types: men-name, women-name, car-brand, lastname, animal-name, bank-name\n\n"
-                  "Available languajes: ")))
+                  "IMPORTANT: Check that the parenthesis are correctly used.\n\n"
+                  "Examples: \n"
+                  "(((User Name::Men)(Lastname Name::Lastname)) es 10 users.csv)\n\n"
+                  "(((State Mexico::Address::State)(Car Car::Brand)) es 100 locations.csv)\n\n"
+                  "SPANISH TYPES: ")))
 
-;; Display guide
+;; Method to display available datatypes
+(define (display-types list)
+  (cond
+    [(empty? list) (display "\n\n")]
+    [else (display (string-append (car list) ", "))(display-types (cdr list))]))
+
+;; Display datatypes
+(define display-spanish (display-types spanish-list))
+
+(display "ENGLISH TYPES: ")
+(define display-english (display-types english-list))
+(display "GLOBAL TYPES: ")
+(define display-global  (display-types global-list))
+
+;; Display available languages
+(display "AVAILABLE LANGUAGES: ")
 (define guide-languajes (display-languajes available-languajes))
 
 ;; Get the input given by user
@@ -88,11 +123,14 @@
 ;; save languaje if exists catalogs in that languaje
 (define languaje
   (cond
-    [(directory-exists? (string-append "./languajes/" (symbol->string (car parameters))))(car parameters)]
-    [else (raise "Languaje typed does not exist, try with valid values")(exit)]))
+    [(directory-exists? (string-append "./languages/" (symbol->string (car parameters))))(car parameters)]
+    [else (raise "Language typed does not exist, try with valid values")(exit)]))
 
 ;; save rows
-(define rows (car (cdr parameters)))
+(define rows
+  (cond
+    [(integer? (car (cdr parameters))) (car (cdr parameters))]
+    [else (raise "The third paramenter (rows) must to be an integer, try again!!!")(exit)]))
 
 ;; save filename if does not exists in current directory
 (define filename
@@ -138,3 +176,7 @@
   (cond
    [(empty? lst) 0]
    [else (+ 1 (my-length (rest lst)))]))
+
+;; find a element in list
+(define (search-element element list)
+  (let* ( (x list)) element))

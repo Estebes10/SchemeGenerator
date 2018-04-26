@@ -21,10 +21,6 @@
 ;; open file to write
 (define out (open-output-file (symbol->string filename)))
 
-;;(display "Problem?" out)
-;; (newline out)
-;;(close-output-port out)
-
 ;; get atribute
 (define (get-attribute list)
   (cond
@@ -61,18 +57,16 @@
 
 ;; Define messages to print after execution
 (define (successful file)
-  (printf "Creating file...\n")
   (display (string-append "The file: " file " was created successfully\n")))
 
 (define (wrong file)
-  (printf "Creating file...\n")
   (display (string-append "The file: " file " could not be created, try again\n")))
 
 ;; Check execution
 (define execute
   (cond
-    [(and (write-header-csv column-names)(fill types-names rows)) (successful (symbol->string filename))]
-    [else (wrong (symbol->string filename))]))
+    [(and (write-header-csv column-names)(fill types-names rows))(printf "Creating file...\n") (successful (symbol->string filename))]
+    [else (printf "Creating file...\n")(wrong (symbol->string filename))]))
 
 ;; find column
 (define (find-column attribute list)

@@ -40,24 +40,27 @@
 ;; get english catalog paths
 (define (get-english-catalog type)
   (cond
-    [(string=? type "animal-name") "languajes/en/animals.txt"]
-    [(string=? type "men-name") "languajes/en/men-name.txt"]
-    [(string=? type "women-name") "languajes/en/women-name.txt"]
-    [(string=? type "lastname") "languajes/en/lastname.txt"]))
+    [(string=? type "Animal::Name") "languages/en/animals.txt"]
+    [(string=? type "Name::Men") "languages/en/men-name.txt"]
+    [(string=? type "Name::Women") "languages/en/women-name.txt"]
+    [(string=? type "Name::Lastname") "languages/en/lastname.txt"]))
 
 ;; Get spanish catalog paths
 (define (get-spanish-catalog type)
   (cond
-    [(string=?  type "animal-name") "languajes/es/animals.txt"]
-    [(string=?  type "men-name") "languajes/es/men-name.txt"]
-    [(string=?  type "women-name") "languajes/es/women-name.txt"]
-    [(string=?  type "lastname") "languajes/es/lastname.txt"]))
+    [(string=?  type "Animal::Name") "languages/es/animals.txt"]
+    [(string=?  type "Name::Men") "languages/es/men-name.txt"]
+    [(string=?  type "Name::Women") "languages/es/women-name.txt"]
+    [(string=?  type "Name::Lastname") "languages/es/lastname.txt"]
+    [(string=?  type "Mexico::Address::State-Code") "languages/es/mexico/address/state-code.txt"]
+    [(string=?  type "Mexico::Address::State") "languages/es/mexico/address/state.txt"]
+    [(string=?  type "Mexico::Address::City") "languages/es/mexico/address/city.txt"]))
 
 ;; Method to use to separate languajes catalog with global catalog
 (define (get-path langu type)
   (cond
-    [(string=?  type "bank-name") "global/bank-names.txt"]
-    [(string=?  type "car-brand") "global/car-brand.txt"]
+    [(string=?  type "Bank::Name") "global/bank-names.txt"]
+    [(string=?  type "Car::Brand") "global/car-brand.txt"]
     [(string=? langu "es")(get-spanish-catalog type)]
     [(string=? langu "en")(get-english-catalog type)]))
 
