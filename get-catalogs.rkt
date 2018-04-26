@@ -1,5 +1,21 @@
 #lang racket
-(require "generator.rkt")
+;;    SchemeGenerator is a small program to generate data to populate databases
+;;    Copyright (C) 2018  Juan Carlos Estebes González
+
+;;    This program is free software: you can redistribute it and/or modify
+;;   it under the terms of the GNU General Public License as published by
+;;    the Free Software Foundation, either version 3 of the License, or
+;;    (at your option) any later version.
+
+;;    This program is distributed in the hope that it will be useful,
+;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;    GNU General Public License for more details.
+
+;;   You should have received a copy of the GNU General Public License
+;;   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+(require "get-values.rkt")
 (provide search-element)
 (provide random-element)
 (provide get-content)
@@ -24,24 +40,27 @@
 ;; get english catalog paths
 (define (get-english-catalog type)
   (cond
-    [(= type "animal-name") "en/animals.txt"]
-    [(= type "men-name") "en/men-name.txt"]
-    [(= type "women-name") "en/women-name.txt"]
-    [(= type "lastname") "en/lastname.txt"]))
+    [(string=? type "Animal::Name") "languages/en/animals.txt"]
+    [(string=? type "Name::Men") "languages/en/men-name.txt"]
+    [(string=? type "Name::Women") "languages/en/women-name.txt"]
+    [(string=? type "Name::Lastname") "languages/en/lastname.txt"]))
 
 ;; Get spanish catalog paths
 (define (get-spanish-catalog type)
   (cond
-    [(string=?  type "animal-name") "es/animals.txt"]
-    [(string=?  type "men-name") "es/men-name.txt"]
-    [(string=?  type "women-name") "es/women-name.txt"]
-    [(string=?  type "lastname") "es/lastname.txt"]))
+    [(string=?  type "Animal::Name") "languages/es/animals.txt"]
+    [(string=?  type "Name::Men") "languages/es/men-name.txt"]
+    [(string=?  type "Name::Women") "languages/es/women-name.txt"]
+    [(string=?  type "Name::Lastname") "languages/es/lastname.txt"]
+    [(string=?  type "Mexico::Address::State-Code") "languages/es/mexico/address/state-code.txt"]
+    [(string=?  type "Mexico::Address::State") "languages/es/mexico/address/state.txt"]
+    [(string=?  type "Mexico::Address::City") "languages/es/mexico/address/city.txt"]))
 
 ;; Method to use to separate languajes catalog with global catalog
 (define (get-path langu type)
   (cond
-    [(string=?  type "bank-name") "global/bank-names.txt"]
-    [(string=?  type "car-brand") "global/car-brand.txt"]
+    [(string=?  type "Bank::Name") "global/bank-names.txt"]
+    [(string=?  type "Car::Brand") "global/car-brand.txt"]
     [(string=? langu "es")(get-spanish-catalog type)]
     [(string=? langu "en")(get-english-catalog type)]))
 
@@ -63,4 +82,3 @@
 ;; get a random element on the catalog
 (define (random-element list)
   (symbol->string (list-ref list (random (length list)))))
-
