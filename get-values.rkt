@@ -53,7 +53,8 @@
 
 ;; List of global datatypes
 (define global-list '("Car::Brand"
-                       "Bank::Name"))
+                       "Bank::Name"
+                       "Famous::Name"))
 
 ;; Method to display all the available languajes
 (define (display-languajes list)

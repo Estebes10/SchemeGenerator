@@ -61,6 +61,7 @@
   (cond
     [(string=?  type "Bank::Name") "global/bank-names.txt"]
     [(string=?  type "Car::Brand") "global/car-brand.txt"]
+    [(string=?  type "Famous::Name") "global/famous-people.txt"]
     [(string=? langu "es")(get-spanish-catalog type)]
     [(string=? langu "en")(get-english-catalog type)]))
 
@@ -81,4 +82,4 @@
 
 ;; get a random element on the catalog
 (define (random-element list)
-  (symbol->string (list-ref list (random (length list)))))
+  (list-ref list (random (length list))))
